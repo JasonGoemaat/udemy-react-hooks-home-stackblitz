@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import uuid from 'uuid/v4';
 import LocalCache from './LocalCache';
+import { useSavedState } from './hooks';
 
 const Tasks = () => {
     const [taskText, setTaskText] = useState('');
-    const [tasks, setTasks] = useState(LocalCache.get('tasks', []));
+    //const [tasks, setTasks] = useState(LocalCache.get('tasks', []));
+    const [tasks, setTasks] = useSavedState('tasks', []);
     const [completedTasks, setCompletedTasks] = useState(LocalCache.get('completedTasks', []));
 
     const updateTaskText = event => {
@@ -13,7 +15,7 @@ const Tasks = () => {
 
     const addTask = () => {
         const updatedTasks = [...tasks, { taskText, id: uuid() }];
-        LocalCache.set('tasks', updatedTasks);
+//        LocalCache.set('tasks', updatedTasks);
         setTasks(updatedTasks);
         setTaskText('');
     }
@@ -24,7 +26,7 @@ const Tasks = () => {
         setCompletedTasks(updatedCompleted);
         setTasks(updatedTasks);
         LocalCache.set('completedTasks', updatedCompleted);
-        LocalCache.set('tasks', updatedTasks);
+//        LocalCache.set('tasks', updatedTasks);
     }
 
     const uncompleteTask = task => () => {
@@ -33,7 +35,7 @@ const Tasks = () => {
         setCompletedTasks(updatedCompleted);
         setTasks(updatedTasks);
         LocalCache.set('completedTasks', updatedCompleted);
-        LocalCache.set('tasks', updatedTasks);
+        // LocalCache.set('tasks', updatedTasks);
     }
 
     const deleteTask = task => () => {

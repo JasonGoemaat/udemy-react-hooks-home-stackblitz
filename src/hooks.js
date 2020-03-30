@@ -17,4 +17,23 @@ export const useFetch = (url, initialValue, key, changes) => {
     }, changes || []);
 
     return result;
-};
+}
+
+// export const useSavedState = (key, defaultValue) => {
+//     const initialValue = LocalCache.get(key, defaultValue);
+//     let [value, setter] = useState(initialValue);
+//     return [value, v => {
+//         LocalCache.set(key, v);
+//         setter(v);
+//     }];
+// }
+
+
+export const useSavedState = (key, defaultValue) => {
+    const initialValue = JSON.parse(localStorage.getItem(key)) || defaultValue;
+    let [value, setter] = useState(initialValue);
+    return [value, v => {
+        localStorage.setItem(key, JSON.stringify(v));
+        setter(v);
+    }];
+}
