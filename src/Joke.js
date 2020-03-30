@@ -1,9 +1,11 @@
 import React from 'react';
-import { useFetch } from './hooks';
+import { useSavedFetch } from './hooks';
+
+const DEFAULT_JOKE = {};
 
 function Joke() {
     const URL = 'https://official-joke-api.appspot.com/jokes/random';
-    const { setup, punchline } = useFetch(URL, 'joke', {});
+    const { setup, punchline } = useSavedFetch(URL, DEFAULT_JOKE, 'joke');
 
     return (
         <div>

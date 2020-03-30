@@ -8,7 +8,6 @@ import { useSavedState } from './hooks';
 const App = () => {
   const [userQuery, setUserQuery] = useState('');
   const [showGallery, setShowGallery] = useSavedState('show-gallery', true);
-
   window.a = { userQuery, setUserQuery };
 
   const updateUserQuery = event => {
@@ -50,6 +49,7 @@ const App = () => {
         </button>
       </div>
       <Stories />
+      {/* <Matrix /> */}
     </div>
   );
 }

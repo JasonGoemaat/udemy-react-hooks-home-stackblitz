@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFetch } from './hooks';
+import { useSavedFetch } from './hooks';
 
 const Story = story => {
     const { id, by, time, title, url } = story;
@@ -13,7 +13,7 @@ const Story = story => {
 
 function Stories() {
     const URL = 'https://news-proxy-server.appspot.com/topstories';
-    const stories = useFetch(URL, [], 'stories'); // url, initial value, local cache key
+    const stories = useSavedFetch(URL, [], 'stories'); // url, initial value, local cache key
 
     return (
         <div>
