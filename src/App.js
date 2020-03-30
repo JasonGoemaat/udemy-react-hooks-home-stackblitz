@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Joke from './Joke';
 import Stories from './Stories';
+import Tasks from './Tasks';
 
-function App() {
+const App = () => {
   const [userQuery, setUserQuery] = useState('');
 
   window.a = { userQuery, setUserQuery };
 
   const updateUserQuery = event => {
-    console.log('userQuery', userQuery);
     setUserQuery(event.target.value);
   };
 
@@ -17,8 +17,6 @@ function App() {
   };
 
   const handleKeyPress = event => {
-    console.log('handleKeyPress', event);
-    console.log('key:', event.key);
     if (event.key === 'Enter') {
       searchQuery();
     }
@@ -31,7 +29,11 @@ function App() {
         <input value={userQuery} onChange={updateUserQuery} onKeyPress={handleKeyPress} />
         <button onClick={searchQuery}>Search</button>
       </div>
+      <hr/>
       <Joke />
+      <hr/>
+      <Tasks />
+      <hr/>
       <Stories />
     </div>
   );
