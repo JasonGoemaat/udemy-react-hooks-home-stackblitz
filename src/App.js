@@ -3,9 +3,11 @@ import Joke from './Joke';
 import Stories from './Stories';
 import Tasks from './Tasks';
 import Gallery from './Gallery';
+import { useSavedState } from './hooks';
 
 const App = () => {
   const [userQuery, setUserQuery] = useState('');
+  const [showGallery, setShowGallery] = useSavedState('show-gallery', true);
 
   window.a = { userQuery, setUserQuery };
 
@@ -23,6 +25,10 @@ const App = () => {
     }
   };
 
+  const toggleShowGallery = () => {
+    setShowGallery(!showGallery);
+  }
+
   return (
     <div className="App">
       <h1>Hello, world!</h1>
@@ -30,13 +36,19 @@ const App = () => {
         <input value={userQuery} onChange={updateUserQuery} onKeyPress={handleKeyPress} />
         <button onClick={searchQuery}>Search</button>
       </div>
-      <hr/>
+      <hr />
       <Joke />
-      <hr/>
+      <hr />
       <Tasks />
-      <hr/>
-      <Gallery />
-      <hr/>
+      <hr />
+      <div>
+        {
+          showGallery ? (<div><Gallery /><hr /></div>) : null
+        }
+        <button onClick={toggleShowGallery}>
+          {showGallery ? 'Hide' : 'Show'} Gallery
+        </button>
+      </div>
       <Stories />
     </div>
   );

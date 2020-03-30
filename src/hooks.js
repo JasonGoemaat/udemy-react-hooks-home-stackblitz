@@ -14,7 +14,7 @@ export const useFetch = (url, initialValue, key) => {
             }
             setResult(json);
         });
-    }, [url, key]);
+    }, []);
 
     return result;
 }
