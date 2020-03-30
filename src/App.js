@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Joke from './Joke';
 import Stories from './Stories';
 import Tasks from './Tasks';
-import Gallery from './Gallery';
+//import Gallery from './Gallery';
 import { useSavedState } from './hooks';
 
 const App = () => {
@@ -42,7 +42,8 @@ const App = () => {
       <hr />
       <div>
         {
-          showGallery ? (<div><Gallery /><hr /></div>) : null
+          //showGallery ? (<div><Gallery /><hr /></div>) : null // doesn't work on stackblitz
+          showGallery ? <h3>Gallery goes here...</h3> : null
         }
         <button onClick={toggleShowGallery}>
           {showGallery ? 'Hide' : 'Show'} Gallery

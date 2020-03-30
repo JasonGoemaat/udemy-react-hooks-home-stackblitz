@@ -5,7 +5,18 @@ export const useSavedState = (key, defaultValue) => {
     const s = localStorage.getItem(key);
     const initialValue = s !== null ? JSON.parse(s) : defaultValue;
     let [value, setter] = useState(initialValue);
-    return [value, v => setter(v)];
+    return [value, v => {
+        if (typeof (v) === 'function') {
+            // function takes most recent value and returns new value
+            const newValue = v(value);
+            LocalCache.set(key, newValue);
+            return setter(newValue);
+        } else {
+            // value set directly
+            LocalCache.set(key, v);
+            return setter(v)
+        }
+    }];
 }
 export const useFetch = (url, initialValue) => {
     const [result, setResult] = useState(initialValue);
