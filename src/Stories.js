@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import LocalCache from './LocalCache';
 
 const Story = story => {
+    const { id, by, time, title, url } = story;
     return (
-        <p key={story.id}><a href={story.url}>{story.title}</a></p>
+        <div key={id}>
+            <a href={url} title={title}>{title}</a>
+            <div>{by} - {new Date(time * 1000).toLocaleString()}</div>
+        </div>
+        // <p key={story.id}><a href={story.url}>{story.title}</a></p>
     );
 };
 
