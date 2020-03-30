@@ -1,47 +1,34 @@
 import React, { useState } from 'react';
 import uuid from 'uuid/v4';
-import LocalCache from './LocalCache';
 import { useSavedState } from './hooks';
 
 const Tasks = () => {
     const [taskText, setTaskText] = useState('');
     //const [tasks, setTasks] = useState(LocalCache.get('tasks', []));
     const [tasks, setTasks] = useSavedState('tasks', []);
-    const [completedTasks, setCompletedTasks] = useState(LocalCache.get('completedTasks', []));
+    const [completedTasks, setCompletedTasks] = useSavedState('completedTasks', []);
 
     const updateTaskText = event => {
         setTaskText(event.target.value);
     }
 
     const addTask = () => {
-        const updatedTasks = [...tasks, { taskText, id: uuid() }];
-//        LocalCache.set('tasks', updatedTasks);
-        setTasks(updatedTasks);
+        setTasks([...tasks, { taskText, id: uuid() }]);
         setTaskText('');
     }
 
     const completeTask = completedTask => () => { // second arrow means we return a function, that has completedTask in scope
-        const updatedCompleted = [...completedTasks, completedTask];
-        const updatedTasks = tasks.filter(task => task.id != completedTask.id);
-        setCompletedTasks(updatedCompleted);
-        setTasks(updatedTasks);
-        LocalCache.set('completedTasks', updatedCompleted);
-//        LocalCache.set('tasks', updatedTasks);
+        setCompletedTasks([...completedTasks, completedTask]);
+        setTasks(tasks.filter(task => task.id !== completedTask.id));
     }
 
     const uncompleteTask = task => () => {
-        const updatedCompleted = completedTasks.filter(x => x.id !== task.id);
-        const updatedTasks = [...tasks, task];
-        setCompletedTasks(updatedCompleted);
-        setTasks(updatedTasks);
-        LocalCache.set('completedTasks', updatedCompleted);
-        // LocalCache.set('tasks', updatedTasks);
+        setCompletedTasks(completedTasks.filter(x => x.id !== task.id));
+        setTasks([...tasks, task]);
     }
 
     const deleteTask = task => () => {
-        const updatedCompleted = completedTasks.filter(x => x.id !== task.id);
-        setCompletedTasks(updatedCompleted);
-        LocalCache.set('completedTasks', updatedCompleted);
+        setCompletedTasks(completedTasks.filter(x => x.id !== task.id));
     }
 
     return (

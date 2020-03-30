@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import LocalCache from './LocalCache';
 
-export const useFetch = (url, initialValue, key, changes) => {
+export const useFetch = (url, initialValue, key) => {
     const value = key ? LocalCache.get(key, initialValue) : initialValue;
     const [result, setResult] = useState(value);
     
@@ -14,7 +14,7 @@ export const useFetch = (url, initialValue, key, changes) => {
             }
             setResult(json);
         });
-    }, changes || []);
+    }, [url, key]);
 
     return result;
 }
