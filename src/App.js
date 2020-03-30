@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import Joke from './Joke';
 
 function App() {
   const [userQuery, setUserQuery] = useState('');
+
+  window.a = { userQuery, setUserQuery };
 
   const updateUserQuery = event => {
     console.log('userQuery', userQuery);
@@ -23,9 +26,11 @@ function App() {
   return (
     <div className="App">
       <h1>Hello, world!</h1>
-      <div className="form"></div>
-      <input value={userQuery} onChange={updateUserQuery} onKeyPress={handleKeyPress}/>
-      <button onClick={searchQuery}>Search</button>
+      <div className="form">
+        <input value={userQuery} onChange={updateUserQuery} onKeyPress={handleKeyPress} />
+        <button onClick={searchQuery}>Search</button>
+      </div>
+      <Joke />
     </div>
   );
 }
